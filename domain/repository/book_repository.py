@@ -9,21 +9,4 @@ class IBookRepository(ABC):
         pass
     
     @abstractmethod
-    def get_all(self) -> List[Book]:
-        pass
-    
-    @abstractmethod
-    def add(self, book: Book) -> None:
-        pass
-    
-    @abstractmethod
-    def update_available(self, id_book: int , available : bool) -> None:
-        pass
-    
-    @abstractmethod
-    def delete(self, book_id: int) -> bool:
-        pass
-    
-    @abstractmethod
-    def get_available_books(self) -> List[Book]:
-        pass
+    def save(self, book: Book) -> None: ...

@@ -7,3 +7,7 @@ class Entity(ABC):
 class ValueObject(ABC):
     """Base class for DDD Value Objects (immutable)."""
     pass
+
+class DomainService(ABC):
+    """Base class for DDD Domain Service"""
+    pass

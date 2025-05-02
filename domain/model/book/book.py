@@ -1,6 +1,6 @@
 from datetime import date
 from domain.exceptions.book_exceptions.book_already_reserved import BookAlreadyReservedError
-from model.entity_valueObject import Entity
+from names_DDD import Entity
 
 class Book(Entity):
 

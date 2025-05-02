@@ -2,11 +2,10 @@
 from dataclasses import dataclass
 from datetime import timedelta, date
 from domain.exceptions.reservation_exceptions.invalid_reservation_duration import InvalidReservationDuration
-from domain.model.entity_valueObject import ValueObject
+from names_DDD import DomainService
 
 
-@dataclass(frozen=True)
-class ReservationDuration(ValueObject):
+class ReservationDuration(DomainService):
     MAX_DAYS = 30
     days: int
 

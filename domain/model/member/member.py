@@ -2,7 +2,7 @@ from card import Card
 from domain.exceptions.member_exceptions.card_expired import CardExpiredError
 from domain.exceptions.member_exceptions.too_many_penalties import TooManyPenaltiesError
 from member.email import Email
-from model.entity_valueObject import Entity
+from names_DDD import Entity
 
 
 class Member(Entity):
