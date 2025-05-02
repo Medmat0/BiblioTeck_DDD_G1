@@ -1,5 +1,7 @@
 from datetime import date
-from model.entity_valueObject import Entity
+
+from domain.model.entity_valueObject import Entity
+
 
 class Book(Entity):
 

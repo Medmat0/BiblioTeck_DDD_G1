@@ -1,16 +1,16 @@
-from book.book import Book
-from model.entity_valueObject import Entity
-from member.member import Member
-from datetime import date, timedelta
-from reservation.reservation_duration import ReservationDuration
+from domain.model.book.book import Book
+from domain.model.entity_valueObject import Entity
+from domain.model.member.member import Member
+from domain.model.reservation.reservation_duration import ReservationDuration
+
 
 class Reservation(Entity):
-    def __init__(self, id: int, book: Book, member: Member, duration_days:ReservationDuration ):
+    def __init__(self, id: int, book: Book, member: Member,duration_days:ReservationDuration ):
         self.id = id
         self.book = book
         self.member = member
         self.start_date = duration_days.start_date()
-        self.duration_days = duration_days
+        self.duration_days = duration_days.days
         self.end_date = duration_days.end_date()
         self.returned = False
 

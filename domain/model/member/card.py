@@ -1,6 +1,7 @@
 
 from datetime import date, timedelta
-from model.entity_valueObject import Entity
+
+from domain.model.entity_valueObject import Entity
 
 
 class Card (Entity):

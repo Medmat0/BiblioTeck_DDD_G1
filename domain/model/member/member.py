@@ -1,7 +1,7 @@
 
-from card import Card
-from member.email import Email
-from model.entity_valueObject import Entity
+from domain.model.entity_valueObject import Entity
+from domain.model.member.card import Card
+from domain.model.member.email import Email
 
 
 class Member(Entity):

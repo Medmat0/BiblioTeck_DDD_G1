@@ -2,7 +2,8 @@
 from dataclasses import dataclass
 from datetime import timedelta, date
 from domain.exceptions.reservation_exceptions.invalid_reservation_duration import InvalidReservationDuration
-from model.entity_valueObject import ValueObject
+from domain.model.entity_valueObject import ValueObject
+
 
 @dataclass(frozen=True)
 class ReservationDuration(ValueObject):
