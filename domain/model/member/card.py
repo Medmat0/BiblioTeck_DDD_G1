@@ -1,0 +1,16 @@
+
+from datetime import date, timedelta
+from model.entity_valueObject import Entity
+
+
+class Card (Entity):
+    def __init__(self, id: int, expiration_date: date, penality_count: int):
+        self.id = id
+        self.penality_count = penality_count
+        self.expiration_date = expiration_date
+
+    def check_penality(self):
+        return self.penality_count
+    
+    def is_expired(self):
+        return self.expiration_date < date.today()
