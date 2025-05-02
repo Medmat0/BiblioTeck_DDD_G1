@@ -8,9 +8,10 @@ class Card (Entity):
         self.id = id
         self.penality_count = penality_count
         self.expiration_date = expiration_date
+        self.MAX_PENALTIES = 5
 
     def check_penality(self):
-        return self.penality_count
+        return self.penality_count >= self.MAX_PENALTIES
     
     def is_expired(self):
         return self.expiration_date < date.today()

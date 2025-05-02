@@ -17,3 +17,19 @@ class Reservation(Entity):
     def __str__(self):
         return (f"Reservation #{self.id}: {self.book.title} for {self.member.name} "
                 f"from {self.start_date} to {self.end_date}")
+    
+    @staticmethod
+    def create(id: int, book: Book, member: Member, duration: ReservationDuration) -> 'Reservation':
+        
+        member.can_reserve()
+
+        book.reserve()
+            
+        return Reservation(
+                id=id,
+                book=book,
+                member=member,
+                duration_days=duration
+            )
+            
+       
