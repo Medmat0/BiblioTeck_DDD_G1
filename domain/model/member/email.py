@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from exceptions.member_exceptions.invalid_email_error import InvalidEmailError
-from names_DDD import ValueObject
 
+from domain.exceptions.member_exceptions.invalid_email_error import InvalidEmailError
+from domain.model.names_DDD import ValueObject
 
 class Email(ValueObject):
     def __init__(self, address: str):

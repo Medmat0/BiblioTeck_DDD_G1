@@ -1,10 +1,11 @@
 
 from datetime import date, timedelta
 
-from names_DDD import Entity
+from domain.model.names_DDD import Entity
 
 
 class Card (Entity):
+
     def __init__(self, id: int, expiration_date: date, penality_count: int):
         self.id = id
         self.penality_count = penality_count
@@ -12,7 +13,7 @@ class Card (Entity):
         self.MAX_PENALTIES = 5
 
     def check_penality(self):
-        return self.penality_count >= self.MAX_PENALTIES
+        return self.penality_count > self.MAX_PENALTIES
     
     def is_expired(self):
         return self.expiration_date < date.today()

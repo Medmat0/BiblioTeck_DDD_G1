@@ -1,9 +1,9 @@
 from domain.model.book.book import Book
-from names_DDD import Entity
+from domain.model.names_DDD import Entity
 from domain.model.member.member import Member
 from domain.model.reservation.reservation_duration import ReservationDuration
+from domain.repository.book_repository import IBookRepository
 from domain.repository.member_repository import IMemberRepository
-from repository.book_repository import IBookRepository
 
 class Reserve_book():
     def __init__(self, id: int, book_id: int, member_id: int ,duration_days:ReservationDuration ):
@@ -32,12 +32,15 @@ class Reserve_book():
 
         member_repository.save_member(member)
         book_repository.save(book)
-            
+
+
         return Reserve_book(
-                id=id,
-                book=book,
-                member=member,
-                duration_days=duration
-            )
-            
+            id= id,
+            book_id= book_id,
+            member_id= member_id,
+            duration_days= duration
+        )
+
+
+
        

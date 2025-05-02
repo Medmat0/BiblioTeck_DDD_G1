@@ -8,10 +8,10 @@ class DbMember(IMemberRepository):
         self.members = STATIC_MEMBERS.copy()
     
     def get_by_id(self, member_id: int) -> Optional[Member]:
-        return next((member for member in self.members if member.id == member_id), None)
+        return next((member for member in self.members if member.id.id == member_id), None)
     
     def save_member(self, member: Member) -> None:
-        existing_member = self.get_by_id(member.id)
+        existing_member = self.get_by_id(member.id.id)
         if existing_member:
             index = self.members.index(existing_member)
             self.members[index] = member
