@@ -1,4 +1,5 @@
-from exceptions.exceptions import DomainException
+from domain.exceptions.exceptions import DomainException
+
 
 class InvalidReservationDuration(DomainException):
     pass

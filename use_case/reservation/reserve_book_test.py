@@ -1,5 +1,8 @@
 import pytest
 from datetime import date, timedelta
+
+from domain.model.member.email import Email
+from domain.model.reservation.reservation_duration import ReservationDuration
 from .reserve_book import (
     Book, Card, Member,
     BookRepository, MemberRepository,
@@ -14,15 +17,15 @@ def setup():
     # Setup members
     member_repo.add_member(Member(
         Card(1, date(2025, 12, 31), 0),
-        "benoit", 30, "benoit@example.com"
+        "benoit", 30, Email("benoit@example.com")
     ))
     member_repo.add_member(Member(
         Card(2, date(2027, 12, 31), 8),
-        "omar", 30, "omar@example.com"
+        "omar", 30, Email("omar@example.com")
     ))
     member_repo.add_member(Member(
         Card(3, date(2020, 12, 31), 0),
-        "omar_benoit", 30, "omarbenoit@example.com"
+        "omar_benoit", 30, Email("omarbenoit@example.com")
     ))
 
     book_repo.add_book(Book(101, "elmatror", "Blue Book", date(2019, 1, 1), True))
@@ -37,7 +40,8 @@ def setup():
     }
 
 def test_valid_reservation(setup):
-    reservation = setup['service'].reserve_book(101, 1, 14)
+    duration = ReservationDuration(14)  # Create a ReservationDuration object
+    reservation = setup['service'].reserve_book(101, 1, duration.days)
     assert reservation is not None
     assert reservation.book.id == 101
     assert reservation.member.id.id == 1
@@ -94,9 +98,9 @@ def test_reservation_str():
 
     book = Book(id=1, name="abc", title="My Book", creation_date=date.today(), available=True)
     card = Card(id=1, expiration_date=date.today() + timedelta(days=10), penality_count=0)
-    member = Member(id=card, name="Alice", age=25, email="alice@example.com")
+    member = Member(id=card, name="Alice", age=25, email=Email("alice@example.com"))
 
-    reservation = Reservation(id=1, book=book, member=member, duration_days=7)
+    reservation = Reservation(id=1, book=book, member=member, duration_days=ReservationDuration(7))
     description = str(reservation)
 
     assert "Reservation #1" in description

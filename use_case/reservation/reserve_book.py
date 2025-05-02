@@ -1,6 +1,13 @@
 from datetime import date, timedelta
 from abc import ABC, abstractmethod
 
+from domain.model.book.book import Book
+from domain.model.member.member import Member
+from domain.model.reservation.reservation import Reservation
+from domain.model.member.card import Card
+from domain.model.reservation.reservation_duration import ReservationDuration
+
+
 # Interfaces
 class IBookRepository(ABC):
     @abstractmethod
@@ -25,33 +32,7 @@ class IReservation(ABC):
     def reserve_book(self, book_id: int, member_id: int, duration_days: int): # pragma: no cover
         pass
 
-# Models
-class Book:
-    def __init__(self, id: int, name: str, title: str, creation_date: date, available: bool):
-        self.id = id
-        self.name = name
-        self.title = title
-        self.creation_date = creation_date
-        self.available = available
 
-class Card:
-    def __init__(self, id: int, expiration_date: date, penality_count: int):
-        self.id = id
-        self.penality_count = penality_count
-        self.expiration_date = expiration_date
-
-    def check_penality(self):
-        return self.penality_count
-    
-    def is_expired(self):
-        return self.expiration_date < date.today()
-
-class Member:
-    def __init__(self, id: Card, name: str, age: int, email: str):
-        self.id = id
-        self.name = name
-        self.age = age
-        self.email = email
 
 # Repository Implementations
 class BookRepository(IBookRepository):
@@ -96,52 +77,44 @@ class ReservationService(IReservation):
         self.book_repo = book_repo
         self.member_repo = member_repo
         self.reservations = []
-    
+
     def reserve_book(self, book_id: int, member_id: int, duration_days: int):
         if duration_days > self.MAX_RESERVATION_DAYS:
             raise ValueError(f"Maximum reservation duration is {self.MAX_RESERVATION_DAYS} days")
         if duration_days <= 0:
             raise ValueError("Reservation duration must be positive")
-        
+
         member = self.member_repo.get_member_by_id(member_id)
         if not member:
             raise ValueError("Member not found")
-        
+
         if member.id.check_penality() >= self.MAX_PENALITIES:
-            raise ValueError(f"Member has {member.id.check_penality()} penalties (max allowed: {self.MAX_PENALITIES-1})")
-        
+            raise ValueError(
+                f"Member has {member.id.check_penality()} penalties (max allowed: {self.MAX_PENALITIES - 1})")
+
         if member.id.is_expired():
             raise ValueError(f"Member's card expired on {member.id.expiration_date}")
-        
+
         book = self.book_repo.get_book_by_id(book_id)
         if not book:
             raise ValueError("Book not found")
         if not book.available:
             raise ValueError("Book is already reserved")
-        
+
+        # Create a ReservationDuration object
+        duration = ReservationDuration(duration_days)
+
         reservation = Reservation(
             id=len(self.reservations) + 1,
             book=book,
             member=member,
-            duration_days=duration_days
+            duration_days=duration  # Pass the ReservationDuration object
         )
-        
+
         if not self.book_repo.update_book_availability(book_id, False):
             raise ValueError("Failed to update book status")
-        
+
         self.reservations.append(reservation)
         return reservation
 
-class Reservation:
-    def __init__(self, id: int, book: Book, member: Member, duration_days: int):
-        self.id = id
-        self.book = book
-        self.member = member
-        self.start_date = date.today()
-        self.duration_days = duration_days
-        self.end_date = self.start_date + timedelta(days=duration_days)
-        self.returned = False
 
-    def __str__(self):
-        return (f"Reservation #{self.id}: {self.book.title} for {self.member.name} "
-                f"from {self.start_date} to {self.end_date}")

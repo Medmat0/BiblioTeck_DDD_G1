@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from exceptions.member_exceptions.invalid_email_error import InvalidEmailError
 from model.entity_valueObject import ValueObject
 
