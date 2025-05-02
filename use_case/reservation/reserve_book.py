@@ -4,25 +4,25 @@ from abc import ABC, abstractmethod
 # Interfaces
 class IBookRepository(ABC):
     @abstractmethod
-    def get_all_books(self) -> list:
+    def get_all_books(self) -> list: # pragma: no cover
         pass
     
     @abstractmethod
-    def get_book_by_id(self, book_id: int):
+    def get_book_by_id(self, book_id: int): # pragma: no cover
         pass
 
 class IMemberRepository(ABC):
     @abstractmethod
-    def get_all_members(self) -> list:
+    def get_all_members(self) -> list: # pragma: no cover
         pass
     
     @abstractmethod
-    def get_member_by_id(self, member_id: int):
+    def get_member_by_id(self, member_id: int): # pragma: no cover
         pass
 
 class IReservation(ABC):
     @abstractmethod
-    def reserve_book(self, book_id: int, member_id: int, duration_days: int):
+    def reserve_book(self, book_id: int, member_id: int, duration_days: int): # pragma: no cover
         pass
 
 # Models
