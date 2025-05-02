@@ -18,7 +18,7 @@ STATIC_MEMBERS = [
     Member(
         id=Card(
             id=2,
-            expiration_date=date(2025, 6, 30),  # Expired card
+            expiration_date=date(2020, 6, 30),  # Expired card
             penality_count=0
         ),
         name="ELMATROR Yassine",
@@ -29,7 +29,7 @@ STATIC_MEMBERS = [
         id=Card(
             id=3,
             expiration_date=date(2028, 12, 31),
-            penality_count=3
+            penality_count=6
         ),
         name="Omar EL BARAKA",
         age=25,

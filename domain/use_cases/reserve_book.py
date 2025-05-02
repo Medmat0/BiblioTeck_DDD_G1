@@ -13,11 +13,6 @@ class Reserve_book():
         self.start_date = duration_days.start_date()
         self.duration_days = duration_days.days
         self.end_date = duration_days.end_date()
-        
-
-    def __str__(self):
-        return (f"Reservation #{self.id}: {self.book.title} for {self.member.name} "
-                f"from {self.start_date} to {self.end_date}")
     
     @staticmethod
     def create(id: int, book_id: int, member_id: int, duration: ReservationDuration,  book_repository: IBookRepository,

@@ -1,3 +1,6 @@
+from domain.exceptions.book_exceptions.book_already_reserved import BookAlreadyReservedError
+from domain.exceptions.member_exceptions.card_expired import CardExpiredError
+from domain.exceptions.member_exceptions.too_many_penalties import TooManyPenaltiesError
 import pytest
 from datetime import date, timedelta
 
@@ -69,7 +72,7 @@ class TestReservationSystem:
         assert updated_book.available is False
 
     def test_reserve_unavailable_book(self, book_repo, member_repo, valid_duration):
-        with pytest.raises(ValueError, match="Book is not available"):
+        with pytest.raises(BookAlreadyReservedError):  # Changez pour attraper la bonne exception
             Reserve_book.create(
                 id=2,
                 book_id=2,
@@ -80,10 +83,11 @@ class TestReservationSystem:
             )
 
     def test_reserve_with_expired_card(self, book_repo, member_repo, valid_duration):
-        with pytest.raises(ValueError, match="Member cannot make reservations"):
+        
+        with pytest.raises(CardExpiredError):
             Reserve_book.create(
                 id=3,
-                book_id=1,
+                book_id=4,
                 member_id=2,
                 duration=valid_duration,
                 book_repository=book_repo,
@@ -91,10 +95,10 @@ class TestReservationSystem:
             )
 
     def test_reserve_with_penalties(self, book_repo, member_repo, valid_duration):
-        with pytest.raises(ValueError, match="Member cannot make reservations"):
+        with pytest.raises(TooManyPenaltiesError):
             Reserve_book.create(
                 id=4,
-                book_id=1,
+                book_id=5,
                 member_id=3,
                 duration=valid_duration,
                 book_repository=book_repo,

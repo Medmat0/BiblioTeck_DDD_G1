@@ -22,5 +22,20 @@ STATIC_BOOKS = [
         title="The Hobbit",
         creation_date=date(1937, 9, 21),
         available=True
+    ) ,
+        Book(
+        id=4,
+        name="Red book",
+        title="DDD",
+        creation_date=date(1997, 6, 26),
+        available=True
+    ),
+
+       Book(
+        id=5,
+        name="Clean code",
+        title=" How to clean your code",
+        creation_date=date(1997, 6, 26),
+        available=True
     )
 ]
