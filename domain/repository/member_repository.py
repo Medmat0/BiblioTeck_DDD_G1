@@ -1,6 +1,5 @@
-
 from abc import ABC, abstractmethod
-from model.member.member import Member
+from domain.model.member.member import Member
 
 class IMemberRepository(ABC):
     @abstractmethod

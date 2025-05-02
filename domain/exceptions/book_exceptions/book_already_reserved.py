@@ -1,4 +1,4 @@
-from exceptions.exceptions import DomainException
+from domain.exceptions.exceptions import DomainException
 
 class BookAlreadyReservedError(DomainException):
     pass

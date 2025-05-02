@@ -1,6 +1,6 @@
 from datetime import date
 from domain.exceptions.book_exceptions.book_already_reserved import BookAlreadyReservedError
-from names_DDD import Entity
+from domain.model.names_DDD import Entity
 
 class Book(Entity):
 
@@ -15,3 +15,10 @@ class Book(Entity):
         if not self.available:
             raise BookAlreadyReservedError()
         self.available = False
+    
+    @property
+    def is_reserved(self) -> bool:
+        return not self.available
+    
+    def make_available(self) -> None:
+        self.available = True

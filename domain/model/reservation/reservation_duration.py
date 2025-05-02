@@ -1,13 +1,12 @@
-
 from dataclasses import dataclass
 from datetime import timedelta, date
 from domain.exceptions.reservation_exceptions.invalid_reservation_duration import InvalidReservationDuration
-from names_DDD import DomainService
+from domain.model.names_DDD import DomainService
 
-
+@dataclass
 class ReservationDuration(DomainService):
-    MAX_DAYS = 30
     days: int
+    MAX_DAYS = 30
 
     def __post_init__(self):
         if not 1 <= self.days <= self.MAX_DAYS:
